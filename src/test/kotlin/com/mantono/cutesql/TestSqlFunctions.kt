@@ -36,13 +36,13 @@ class TestSqlFunctions {
 	fun testSelectQuery() {
 
 		val query: String = QueryBuilder
-				.select("*")
+				.select("Labels.name, `Labels`.`id`, Labels.user")
 				.from("Labels")
 				.where("user = ?", 1)
 				.orderBy("priority")
 				.asc()
 				.build()
 
-		assertEquals("SELECT * FROM Labels WHERE user = ? ORDER BY priority ASC", query)
+		assertEquals("SELECT `Labels`.`name`, `Labels`.`id`, `Labels`.`user` FROM `Labels` WHERE `user` = ? ORDER BY `priority` ASC", query)
 	}
 }

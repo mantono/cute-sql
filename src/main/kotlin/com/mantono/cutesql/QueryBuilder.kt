@@ -40,7 +40,7 @@ class QueryBuilder private constructor() {
 	override fun toString(): String = build()
 
 	fun build(): String = query.joinToString(separator = " ") { q ->
-		"${q.first}${q.second?.let { " $it" } ?: ""}"
+		"${q.first}${escape(q.second)}"
 	}
 
 	private fun toPreparedStatement(connection: Connection): PreparedStatement =
@@ -74,6 +74,39 @@ class QueryBuilder private constructor() {
 			QueryBuilder().genericQuery(SqlKeyword.DELETE, query, preparedArgs)
 	}
 }
+
+private val nonEscapableChars: List<Char> = listOf('?', ',', '=')
+
+private const val PAD_CHAR = '`'
+
+internal fun escape(query: String?): String {
+	if(query == null)
+		return ""
+
+	return query
+		.split(Regex("\\s"))
+		.asSequence()
+		.map {
+			if(pad(it)) {
+				it
+					.replace(".", "$PAD_CHAR.$PAD_CHAR")
+					.addPrefix(PAD_CHAR)
+					.plus(PAD_CHAR)
+					.replace(",$PAD_CHAR", "$PAD_CHAR,")
+			}
+			else {
+				it
+			}
+		}
+		.joinToString(separator = " ", prefix = " ") { it }
+}
+
+private fun pad(s: String): Boolean = !s.isKeyword() && !s.isSymbol() && !s.isPadded()
+
+private fun String.isSymbol(): Boolean = this.length == 1 && this.first() in nonEscapableChars
+private fun String.isKeyword(): Boolean = this.matches(Regex("[A-Z]+"))
+private fun String.isPadded(): Boolean = matches(Regex("`[\\w.`]+`,?"))
+private fun String.addPrefix(prefix: Char): String = prefix + this
 
 fun PreparedStatement.set(i: Int, arg: Any) {
 	when(arg) {
