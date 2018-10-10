@@ -22,7 +22,7 @@ import java.sql.Timestamp
 import java.util.*
 
 
-object MockStatement: PreparedStatement {
+internal object MockStatement: PreparedStatement {
 	override fun setRef(p0: Int, p1: Ref?)
 	{
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

@@ -15,7 +15,7 @@ import java.sql.Struct
 import java.util.*
 import java.util.concurrent.Executor
 
-object MockConnection: Connection {
+internal object MockConnection: Connection {
 	override fun prepareStatement(p0: String?): PreparedStatement = MockStatement
 
 	override fun prepareStatement(p0: String?, p1: Int, p2: Int): PreparedStatement

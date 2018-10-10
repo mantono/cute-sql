@@ -15,6 +15,15 @@ class SQL(query: SQL.() -> Unit): SqlQuery {
 	fun select(query: String, vararg preparedArgs: Any): Unit =
 		genericQuery(SqlKeyword.SELECT, query, preparedArgs)
 
+	fun insert(query: String, vararg preparedArgs: Any): Unit =
+		genericQuery(SqlKeyword.INSERT, query, preparedArgs)
+
+	fun update(query: String, vararg preparedArgs: Any): Unit =
+		genericQuery(SqlKeyword.UPDATE, query, preparedArgs)
+
+	fun delete(query: String, vararg preparedArgs: Any): Unit =
+		genericQuery(SqlKeyword.DELETE, query, preparedArgs)
+
 	fun from(query: String, vararg preparedArgs: Any): Unit =
 		genericQuery(SqlKeyword.FROM, query, preparedArgs)
 
@@ -23,6 +32,21 @@ class SQL(query: SQL.() -> Unit): SqlQuery {
 
 	fun orderBy(query: String, vararg preparedArgs: Any): Unit =
 		genericQuery(SqlKeyword.ORDER_BY, query, preparedArgs)
+
+	fun join(query: String, vararg preparedArgs: Any): Unit =
+		genericQuery(SqlKeyword.JOIN, query, preparedArgs)
+
+	fun innerJoin(query: String, vararg preparedArgs: Any): Unit =
+		genericQuery(SqlKeyword.INNER_JOIN, query, preparedArgs)
+
+	fun leftJoin(query: String, vararg preparedArgs: Any): Unit =
+		genericQuery(SqlKeyword.LEFT_JOIN, query, preparedArgs)
+
+	fun rightJoin(query: String, vararg preparedArgs: Any): Unit =
+		genericQuery(SqlKeyword.RIGHT_JOIN, query, preparedArgs)
+
+	fun limit(query: String, vararg preparedArgs: Any): Unit =
+		genericQuery(SqlKeyword.LIMIT, query, preparedArgs)
 
 	fun asc(): Unit = genericQuery(SqlKeyword.ASC)
 
