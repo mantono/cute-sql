@@ -91,12 +91,3 @@ class SQL(query: SQL.() -> Unit): SqlQuery {
 	private fun toPreparedStatement(connection: Connection): PreparedStatement =
 		connection.prepareStatement(build())
 }
-
-interface SqlQuery {
-	fun build(): String
-	fun prepare(connection: Connection): PreparedStatement
-}
-
-fun SqlQuery.executeQuery(connection: Connection): ResultSet = prepare(connection).executeQuery()
-fun SqlQuery.execute(connection: Connection): Boolean = prepare(connection).execute()
-fun SqlQuery.executeUpdate(connection: Connection): Int = prepare(connection).executeUpdate()
