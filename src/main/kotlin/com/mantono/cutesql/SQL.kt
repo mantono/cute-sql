@@ -97,14 +97,6 @@ interface SqlQuery {
 	fun prepare(connection: Connection): PreparedStatement
 }
 
-fun SqlQuery.executeQuery(connection: Connection): ResultSet = connection.use {
-	prepare(it).executeQuery()
-}
-
-fun SqlQuery.execute(connection: Connection): Boolean = connection.use {
-	prepare(it).execute()
-}
-
-fun SqlQuery.executeUpdate(connection: Connection): Int = connection.use {
-	prepare(it).executeUpdate()
-}
+fun SqlQuery.executeQuery(connection: Connection): ResultSet = prepare(connection).executeQuery()
+fun SqlQuery.execute(connection: Connection): Boolean = prepare(connection).execute()
+fun SqlQuery.executeUpdate(connection: Connection): Int = prepare(connection).executeUpdate()
