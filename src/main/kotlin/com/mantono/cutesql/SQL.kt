@@ -18,6 +18,9 @@ class SQL(query: SQL.() -> Unit): SqlQuery {
 	fun insert(query: String, vararg preparedArgs: Any): Unit =
 		genericQuery(SqlKeyword.INSERT, query, preparedArgs)
 
+	fun values(query: String, vararg preparedArgs: Any): Unit =
+		genericQuery(SqlKeyword.VALUES, query, preparedArgs)
+
 	fun update(query: String, vararg preparedArgs: Any): Unit =
 		genericQuery(SqlKeyword.UPDATE, query, preparedArgs)
 

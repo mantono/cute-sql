@@ -3,6 +3,7 @@ package com.mantono.cutesql
 enum class SqlKeyword {
 	SELECT,
 	INSERT,
+	VALUES,
 	UPDATE,
 	DELETE,
 	WHERE,
